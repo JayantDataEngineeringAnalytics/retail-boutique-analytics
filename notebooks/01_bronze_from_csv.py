@@ -17,7 +17,7 @@ df = (spark.read.format("csv")
 now = F.current_timestamp()
 df = (df.withColumn("ingest_ts", now)
         .withColumn("batch_id", F.date_format(now, "yyyyMMddHHmmss"))
-        .withColumn("source_file", F.input_file_name())
+        .withColumn("source_file", F.lit(src))
         .withColumn("ingest_date", F.to_date(now)))
 
 # ---------------- bronze.products ----------------
