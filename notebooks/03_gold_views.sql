@@ -14,7 +14,7 @@ SELECT
   SUM(f.revenue)                                         AS total_revenue,
   SUM(f.qty)                                             AS units_sold,
   SUM(f.qty)                                             AS orders,  -- one fact row = one order
-  ROUND(DIVIDE(SUM(f.revenue), NULLIF(SUM(f.qty), 0)), 2) AS aov,
+  ROUND(SUM(f.revenue) / NULLIF(SUM(f.qty), 0), 2) AS aov,
   ROUND(100.0 * SUM(CASE WHEN f.is_returned THEN 1 ELSE 0 END) / NULLIF(SUM(f.qty), 0), 2) AS return_rate_pct,
   AVG(f.customer_rating)                                 AS avg_rating
 FROM retail_demo.silver.fact_sales_clean f
